@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head> </head>
+
+<body>
+    <script> 
+        function cadastrar() { 
+            window.location.href = "/usuarioCreate"
+        }
+    </script>
+    <form action="/login" method="post">
+        <br>
+        <div class="form-group">
+            <label for="titulo">Controle de Frequência</label>
+        </div>
+        <div class="col">
+            <center>
+                <img src="../images/logo.png" width="50%" alt="Imagem Não Encontrada" />
+            </center>
+        </div>
+        <br>
+        <div class="input-group input-group-sm col-sm-7">
+            <input type="text" class="form-control form-control-sm" required placeholder="Usuário" id="campoLogin" name="login">
+        </div>
+        <br>
+        <div class="input-group input-group-sm col-sm-7">
+            <input type="password" class="form-control form-control-sm" required placeholder="Senha" id="campoSenha" name="senha">
+        </div>
+        <br>
+        <div class="form-group">
+            <button type="submit" class="btn btn-sm btn-block" style="background-color: #e4b94c;">Logar</button>
+            <button onclick=cadastrar() class="btn btn-sm btn-block" style="background-color: #e4b94c;">Cadastrar</button>
+        </div>
+    </form>
+</body>
+
+</html>

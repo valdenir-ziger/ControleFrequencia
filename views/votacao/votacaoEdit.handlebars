@@ -1,0 +1,19 @@
+<h3>Editar o Voto do Matrícula/Login: {{votacao.matricula}}</h3>
+<br>
+<form class="bg-dark text-white" action="/votacaoEdit" method="post">
+    <input type="hidden" name="id" value="{{votacao._id}}">
+    <div class="input-group input-group-sm col-1">
+        <input type="number" 
+               class="form-control bg-dark text-white" 
+               placeholder="Nota" 
+               id="campoVoto" 
+               name="nota" 
+               min="0" max="10" 
+               value="{{votacao.nota}}"
+               required>
+    </div>
+    <small id="campoVotoHelp" class="form-text text-muted">Notas de 0 a 10</small>
+    <br>
+    <button type="submit" class="btn btn-secondary">Salvar</button> 
+    <br><br>
+</form>

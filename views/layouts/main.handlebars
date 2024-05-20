@@ -1,0 +1,100 @@
+<!DOCTYPE html>​
+
+<html>
+
+<head>​
+    <title>{{titulo}}</title>
+    <meta name="viewport" content="width = device-width, initial-scale =1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://momentjs.com/downloads/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.31/moment-timezone-with-data.min.js"></script>
+</head>​
+
+<body class= "bg-dark text-white">
+    <nav class="navbar fixed-top navbar-expand-lg  navbar-dark" style="background-color: #e4b94c;">
+        <a class="navbar-brand" href="/home">Bem Vindo {{user}}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Votação
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/votacaoCreate">Votar</a>
+                        {{#if isAdministrador}} 
+                            <a class="dropdown-item" href="/votacaoListAdmin">Todos Votos Realizados</a>
+                            <a class="dropdown-item" href="/votacaoRankingGeral">Ranking Geral</a>
+                        {{else}}
+                            <a class="dropdown-item" href="/votacaoList">Votos Realizados</a>
+                            
+                        {{/if}}
+                        <a class="dropdown-item" href="/votacaoRankingNota">Ranking Maior Nota</a>
+                        <a class="dropdown-item" href="/votacaoRankingVoto">Ranking Mais Votados</a>
+                    </div>
+                </li>
+                {{#if isAdministrador}} 
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Eventos
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/eventoCreate">Cadastrar</a>
+                            <a class="dropdown-item" href="/eventoList">Listar Eventos</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Usuários
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/usuarioCreate">Cadastrar</a>
+                            <a class="dropdown-item" href="/usuarioList">Listar Usuários</a>
+                        </div>
+                    </li>
+                {{/if}}
+
+                {{#if isCandidato}} 
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Apresentações
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/apresentacaoCreate">Cadastrar</a>
+                            <a class="dropdown-item" href="/apresentacaoList">Listar Apresentações</a>
+                        </div>
+                    </li>
+                {{/if}}
+                <li class="/logout">
+                    <a class="nav-link" href="/logout">Sair</a>
+                </li>
+            </ul>
+            </form>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1 col-md-4"> </div>
+            <div class="col-10 col-md-4">
+                 <br>
+                <img src="../images/logo.png" width="100%" alt="não carregou a imagem" />
+            </div>
+        </div>
+    </div>
+    <br>
+    <center>
+        {{{body}}}
+    </center>
+</body>
+
+</html>
