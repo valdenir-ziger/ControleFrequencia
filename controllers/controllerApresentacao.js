@@ -69,15 +69,9 @@ module.exports = {
         }else{
             if (req.session.tipo == 0){
                 Apresentacao.find().then((apresentacao) => {
-                    res.render('apresentacao/apresentacaoList', {apresentacao: apresentacao.map(apresentacao => apresentacao.toJSON())});
+                    res.render('relatorio/relatorio', {apresentacao: apresentacao.map(apresentacao => apresentacao.toJSON())});
                 });
             }
-            else{
-                Apresentacao.find({ matricula: req.session.login, excluido: false }).then((apresentacao) => {
-                    res.render('apresentacao/apresentacaoList', {apresentacao: apresentacao.map(apresentacao => apresentacao.toJSON())});
-                });
-            }
-            
         }
     },
     async getEdit(req, res) {

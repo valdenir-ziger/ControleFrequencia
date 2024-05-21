@@ -1,0 +1,73 @@
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css" rel="stylesheet"/>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+
+<div class="table-responsive"></div>
+    <div class="border col-sm-5" style="background-color: #b4b1d8;">
+        <br>
+        <div class="form-group" style="background-color: #f6f2f0;">
+            <h3>Relatório de Frequência</h3>
+            <br>
+            <div id="datepicker" class="input-group input-group-sm col-7 input-daterange">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="campoTipo">Período</label>
+                </div>
+                <input type="text" id="datepicker" class="form-control">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="campoTipo"> á </label>
+                </div>
+                <input type="text" id="datepicker" class="form-control">
+            </div>
+            <br>
+            <div class="input-group input-group-sm col-7">
+                <input type="text" class="form-control" placeholder="Evento">
+            </div>
+            <br>
+            <div class="input-group input-group-sm col-7">
+                <input type="text" class="form-control" placeholder="Curso/Palestra">
+            </div>
+            <br>
+            <button type="submit" class="btn" style="background-color: #e4b94c;">Procurar Eventos</button>
+            <br><br>
+        </div>
+    </div>
+    <h5>Eventos Localizados</h5>
+    <div class="border col-sm-8" style="background-color: #b4b1d8;">
+        <table class="table table-sm text-dark">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-dark" style="background-color: #b4b1d8;" scope="col">Evento</th>
+                    <th class="text-dark" style="background-color: #b4b1d8;" scope="col">Curso/Palestra</th>
+                    <th class="text-dark" style="background-color: #b4b1d8;" scope="col">Data</th>
+                    <th class="text-dark" style="background-color: #b4b1d8;" scope="col">Local</th>
+                </tr>
+            </thead>
+            <tbody>
+            {{#each apresentacao}}
+            <tr>
+                <th scope="row">{{descricao_evento}}</th>
+                <td> </td>
+                <td>{{musica}}</td>
+                <td>{{matricula}}</td>
+                <td><a href=""> 
+                        <button class="btn btn-sm col-sm-8" style="background-color: #e4b94c;">.PDF</button> </a></td>
+                <td><a href=""> 
+                        <button class="btn btn-sm col-sm-8" style="background-color: #e4b94c;">.TXT</button> </a></td>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>  
+    <br>
+</div>
+
+<script>
+     $(function(){
+        $( "#datepicker" ).datepicker({
+            format: "dd/mm/yyyy",
+            language: "pt-BR"
+        });
+    }); 
+</script>

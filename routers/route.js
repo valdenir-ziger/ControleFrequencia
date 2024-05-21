@@ -21,6 +21,9 @@ const upload = multer({storage})
 route.get("/home", function(req,res){
     res.render('home');
 });
+route.get("/relatorio", function(req,res){
+  res.render('relatorio/relatorio');
+});
 route.get("/logout", controllerUsuario.getLogout);
 
 //Controller Usuario

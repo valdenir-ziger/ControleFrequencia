@@ -1,5 +1,4 @@
 const Usuario = require('../models/models_nosql/usuario');
-const Ranking = require('../models/models_nosql/ranking');
 
 module.exports = {
     async getLogin(req, res) {
@@ -22,7 +21,7 @@ module.exports = {
                 req.session.login           = req.body.login;
                 req.session.user            = usuarios.nome;
                 req.session.tipo            = usuarios.tipo;
-                req.session.tipo_descricao  = usuarios.tipo_descricao;
+                req.session.user_id         = usuarios._id;
                 console.log("Usuário " + req.session.login + " acabou de conectar como " + req.session.tipo_descricao + "!"); 
                 
                 res.redirect('/home');
@@ -30,7 +29,7 @@ module.exports = {
         });
 
         if (req.session.login == undefined) {
-            console.log("Usuário " + req.body.login + "não encontrado!");
+            console.log("Usuário " + req.body.login + " não encontrado!");
             res.redirect('usuario/login');
         }
     },
@@ -44,10 +43,10 @@ module.exports = {
             usuario.tipo_descricao = "Administrador";
         }
         else if (tipo == 1) {
-            usuario.tipo_descricao = "Ouvinte/Votante";
+            usuario.tipo_descricao = "Professor";
         }
         else{
-            usuario.tipo_descricao = "Candidato";
+            usuario.tipo_descricao = "Organizador";
         }
 
         await usuario.save().catch((err) => {
@@ -69,7 +68,7 @@ module.exports = {
                 });
             }
             else{
-                Usuario.find({excluido: false}).then((usuarios) => {
+                Usuario.find({_id: req.session.user_id, excluido: false}).then((usuarios) => {
                     res.render('usuario/usuarioList', { usuarios: usuarios.map(usuarios=> usuarios.toJSON())});
                 }).catch((err) => {
                     console.log(err); 
@@ -80,6 +79,7 @@ module.exports = {
     },
     async getEdit(req, res) {
         await Usuario.findOne({ _id: req.params.id }).then((usuarios) => {
+            console.log('usuario/usuarioEdit: ' + usuarios); 
             res.render('usuario/usuarioEdit', { usuarios: usuarios.toJSON() });
         });
     },
@@ -98,10 +98,10 @@ module.exports = {
                 tipo_descricao = "Administrador";
             }
             else if (tipo == 1) {
-                tipo_descricao = "Ouvinte/Votante";
+                tipo_descricao = "Professor";
             }
             else{
-                tipo_descricao = "Candidato";
+                tipo_descricao = "Organizador";
             }
 
             await Usuario.findOneAndUpdate({_id:req.body.id}, {nome, senha, tipo, tipo_descricao, excluido});
