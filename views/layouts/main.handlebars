@@ -34,12 +34,7 @@
                             Frequência
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/votacaoCreate">Votar</a>
-                            <a class="dropdown-item" href="/votacaoListAdmin">Todos Votos Realizados</a>
-                            <a class="dropdown-item" href="/votacaoRankingGeral">Ranking Geral</a>
-                            <a class="dropdown-item" href="/votacaoList">Votos Realizados</a>
-                            <a class="dropdown-item" href="/votacaoRankingNota">Ranking Maior Nota</a>
-                            <a class="dropdown-item" href="/votacaoRankingVoto">Ranking Mais Votados</a>
+                            <a class="dropdown-item" href="/frequencia">Lancar Frequência</a>
                         </div>
                     </li> 
                     <li class="nav-item dropdown">
@@ -48,8 +43,7 @@
                             Participante
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/eventoCreate">Cadastrar</a>
-                            <a class="dropdown-item" href="/eventoList">Listar Eventos</a>
+                            <a class="dropdown-item" href="/participanteCreate">Cadastrar</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -58,8 +52,8 @@
                             Usuário
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/usuarioCreate">Cadastrar</a>
-                            <a class="dropdown-item" href="/usuarioList">Gerenciar Usuários Cadastrados</a>
+                            <a class="dropdown-item" href="/pessoaCreate">Cadastrar</a>
+                            <a class="dropdown-item" href="/pessoaList">Gerenciar Usuários Cadastrados</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -83,15 +77,6 @@
                             <a class="dropdown-item" href="/relatorio">Relatório de Frequência</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Usuário
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                             <a class="dropdown-item" href="/usuarioEdit/{{user_id}}">Editar Usuário</a>
-                        </div>
-                    </li>
                 {{/if}}
 
                 {{#if isOrganizador}} 
@@ -101,16 +86,7 @@
                             Frequência
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/votacaoCreate">Votar</a>
-                            {{#if isAdministrador}} 
-                                <a class="dropdown-item" href="/votacaoListAdmin">Todos Votos Realizados</a>
-                                <a class="dropdown-item" href="/votacaoRankingGeral">Ranking Geral</a>
-                            {{else}}
-                                <a class="dropdown-item" href="/votacaoList">Votos Realizados</a>
-                                
-                            {{/if}}
-                            <a class="dropdown-item" href="/votacaoRankingNota">Ranking Maior Nota</a>
-                            <a class="dropdown-item" href="/votacaoRankingVoto">Ranking Mais Votados</a>
+                            <a class="dropdown-item" href="/frequencia">Lancar Frequência</a>  
                         </div>
                     </li> 
                     <li class="nav-item dropdown">
@@ -119,17 +95,7 @@
                             Participante
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/eventoCreate">Cadastrar</a>
-                            <a class="dropdown-item" href="/eventoList">Listar Eventos</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Usuário
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/usuarioEdit/{{user_id}}">Editar Usuário</a>
+                            <a class="dropdown-item" href="/participanteCreate">Cadastrar</a>
                         </div>
                     </li>
                 {{/if}}

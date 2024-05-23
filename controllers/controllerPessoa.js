@@ -3,7 +3,7 @@ const Usuario = require('../models/models_nosql/usuario');
 module.exports = {
     async getLogin(req, res) {
         if (req.session.login == undefined) {
-            res.render('usuario/login', { layout: 'noMenu.handlebars' });
+            res.render('pessoa/pessoaLogin', { layout: 'noMenu.handlebars' });
         }
         else {
             res.redirect('/home');
@@ -22,7 +22,7 @@ module.exports = {
                 req.session.user            = usuarios.nome;
                 req.session.tipo            = usuarios.tipo;
                 req.session.user_id         = usuarios._id;
-                console.log("Usuário " + req.session.login + " acabou de conectar como " + req.session.tipo_descricao + "!"); 
+                console.log("Usuário " + req.session.login + " acabou de conectar!"); 
                 
                 res.redirect('/home');
             }
@@ -30,11 +30,11 @@ module.exports = {
 
         if (req.session.login == undefined) {
             console.log("Usuário " + req.body.login + " não encontrado!");
-            res.redirect('usuario/login');
+            res.redirect('/login');
         }
     },
     async getCreate(req, res) {
-        res.render('usuario/usuarioCreate');
+        res.render('pessoa/pessoaCreate');
     },
     async postCreate(req, res) {
         const {nome, login, senha, tipo} = req.body;
@@ -57,11 +57,11 @@ module.exports = {
     },
     async getList(req, res) {
         if(req.session.login == undefined){
-            res.redirect('usuario/login');
+            res.redirect('/login');
         }else{
             if (req.session.tipo == 0){//administrador
                 Usuario.find().then((usuarios) => {
-                    res.render('usuario/usuarioList', { usuarios: usuarios.map(usuarios=> usuarios.toJSON())});
+                    res.render('pessoa/pessoaList', { usuarios: usuarios.map(usuarios=> usuarios.toJSON())});
                 }).catch((err) => {
                     console.log(err); 
                     res.redirect('/home');
@@ -69,7 +69,7 @@ module.exports = {
             }
             else{
                 Usuario.find({_id: req.session.user_id, excluido: false}).then((usuarios) => {
-                    res.render('usuario/usuarioList', { usuarios: usuarios.map(usuarios=> usuarios.toJSON())});
+                    res.render('pessoa/pessoaList', { usuarios: usuarios.map(usuarios=> usuarios.toJSON())});
                 }).catch((err) => {
                     console.log(err); 
                     res.redirect('/home');
@@ -79,13 +79,13 @@ module.exports = {
     },
     async getEdit(req, res) {
         await Usuario.findOne({ _id: req.params.id }).then((usuarios) => {
-            console.log('usuario/usuarioEdit: ' + usuarios); 
-            res.render('usuario/usuarioEdit', { usuarios: usuarios.toJSON() });
+            console.log('pessoa/pessoaEdit: ' + usuarios); 
+            res.render('pessoa/pessoaEdit', { usuarios: usuarios.toJSON() });
         });
     },
     async postEdit(req, res) {
         if(req.session.login == undefined){
-            res.redirect('usuario/login');
+            res.redirect('/login');
         }else{
             var {nome, senha, tipo, tipo_descricao, excluido} = req.body;
             excluido = false;
@@ -105,16 +105,38 @@ module.exports = {
             }
 
             await Usuario.findOneAndUpdate({_id:req.body.id}, {nome, senha, tipo, tipo_descricao, excluido});
-            res.redirect('/usuarioList');
+            res.redirect('/pessoaList');
         }
     },
     async getDelete(req, res) {
         if(req.session.login == undefined){
-            res.redirect('usuario/login');
+            res.redirect('/login');
         }else{
             var excluido = true;
             await Usuario.findOneAndUpdate({ _id: req.params.id }, {excluido});
-            res.redirect('/usuarioList');
+            res.redirect('/pessoaList');
         }
-    }
+    },
+    async getParticipante(req, res) {
+        res.render('participante/participanteCreate');
+    },
+    async postParticipanteCreate(req, res) {
+        const {nome, login, senha, tipo} = req.body;
+        const usuario = new Usuario({nome, login, senha, tipo});
+        if (tipo == 0){
+            usuario.tipo_descricao = "Administrador";
+        }
+        else if (tipo == 1) {
+            usuario.tipo_descricao = "Professor";
+        }
+        else{
+            usuario.tipo_descricao = "Organizador";
+        }
+
+        await usuario.save().catch((err) => {
+            console.log(err); 
+        });
+
+        res.redirect('/home');
+    },
 }   

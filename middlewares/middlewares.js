@@ -28,7 +28,7 @@ module.exports = {
             next();
         else if ((req.url == '/login') && (req.method == 'POST'))
             next();
-        else if ((req.url).split('/')[1] == 'usuarioCreate')
+        else if ((req.url).split('/')[1] == 'pessoaCreate')
             next();
         else res.redirect('/');
     }
