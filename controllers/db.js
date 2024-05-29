@@ -1,26 +1,16 @@
-const config   = require('../config/db_postgres');
-const { Pool } = require('pg');
+const config    = require('../config/db_postgres');
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize(config.connection, {dialect: 'postgres'});
 
 async function Conectar() {
-    if (global.connection)
-        return global.connection.connect();
-
-    const pool = new Pool({
-        connectionString: config.connection
-    });
-
-    //apenas testando a conexão
-    const client = await pool.connect();
-    console.log("Conectado em: " + config.connection);
-    console.log("Criou pool de conexões no PostgreSQL!");
-
-    const res = await client.query('SELECT NOW()');
-    console.log(res.rows[0]);
-    client.release();
-
-    //guardando para usar sempre o mesmo
-    global.connection = pool;
-    return pool.connect();
+    try {
+        await sequelize.authenticate();
+        console.log("Conectado em: " + config.connection);
+    } catch (error) {
+        console.error('Não foi possível conectar na database:', error);
+    }
 }
 
 Conectar();
+
+module.exports = sequelize
