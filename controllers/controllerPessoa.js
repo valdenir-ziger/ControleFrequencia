@@ -1,4 +1,5 @@
-const Usuario = require('../models/models_nosql/usuario');
+const { Op } = require('sequelize');
+const Pessoa = require('../models/pessoa');
 
 module.exports = {
     async getLogin(req, res) {
@@ -14,24 +15,42 @@ module.exports = {
         res.redirect('/');
     },
     async postLogin(req, res) {
-        await Usuario.findOne({login   : req.body.login, 
-                               senha   : req.body.senha,
-                               excluido: false}).then((usuarios) => {
-            if (usuarios != null) {
+        await Pessoa.findAll({attributes: ['administrador', 'professor', 'nome_pessoa', 'cod_pessoa'],
+                              where: {
+                                [Op.and]: [{ cpf_pessoa  : req.body.login }, 
+                                           { senha_pessoa: req.body.senha }],},
+                              }).then((pessoas) => {
+            if (pessoas.length <= 0) {
+                console.log("Pessoa " + req.body.login + " não encontrado!");
+                res.redirect('/login');
+            }
+            else  if(pessoas.length == 1) {
+                var tipo;
+                if (pessoas[0].administrador) {
+                    tipo = 0;
+                } 
+                else if (pessoas[0].professor) {
+                    tipo = 1;
+                }
+                else{
+                    tipo = 2;
+                }
+
                 req.session.login           = req.body.login;
-                req.session.user            = usuarios.nome;
-                req.session.tipo            = usuarios.tipo;
-                req.session.user_id         = usuarios._id;
-                console.log("Usuário " + req.session.login + " acabou de conectar!"); 
+                req.session.user            = pessoas[0].nome_pessoa;
+                req.session.tipo            = tipo;
+                req.session.user_id         = pessoas[0].cod_pessoa;
+                console.log("Pessoa " + req.session.login + "-" + req.session.user +  " acabou de conectar!"); 
                 
                 res.redirect('/home');
             }
+            else{
+                console.log("Registro " + req.body.login + " duplicado!");
+                res.redirect('/login');
+            }
+        }).catch(async error => {
+            console.log(error);
         });
-
-        if (req.session.login == undefined) {
-            console.log("Usuário " + req.body.login + " não encontrado!");
-            res.redirect('/login');
-        }
     },
     async getCreate(req, res) {
         res.render('pessoa/pessoaCreate');

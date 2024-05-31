@@ -28,6 +28,7 @@ app.use(routes);
 
 app.use(express.urlencoded({extended:true}))
 process.env.TZ = 'America/Sao_Paulo';
+console.log(process.env.TZ);
 
 app.listen(8080,function(){
     console.log("Servidor executando no link http://localhost:8080")
