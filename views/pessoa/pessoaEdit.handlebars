@@ -1,39 +1,19 @@
 <form class="text-dark" action="/pessoaEdit" method="post">
     <div class="form-group col-md-5" style="background-color: #b4b1d8;">
-        <h3>Alterando Usuario de Login: {{usuarios.login}}</h3>
-        <input type="hidden" name="id" value="{{usuarios._id}}">
-        <input type="hidden" name="tipo" value="{{usuarios.tipo}}">
-        <input type="hidden" name="tipo_descricao" value="{{usuarios.tipo_descricao}}">
+        <h5>Alterando Usuario de Login: {{pessoas.cpf_pessoa}}</h5>
+        <input type="hidden" name="id" value="{{pessoas.cod_pessoa}}">
         <div class="form-group col-8">
             <label for="campoNome">Nome</label>
-            <input type="text" class="form-control" id="campoNome" name="nome"  value="{{usuarios.nome}}">
+            <input type="text" class="form-control" id="campoNome" name="nome"  value="{{pessoas.nome_pessoa}}">
         </div>
         <div class="form-group col-8">
             <label for="campoSenha">Nova Senha</label>
-            <input type="password" class="form-control" id="campoSenha" required name="senha" value="{{usuarios.senha}}">
+            <input type="password" class="form-control" id="campoSenha" required name="senha" value="{{pessoas.senha_pessoa}}">
         </div>
         <div class="form-group col-8">
-            <label for="campoSenha">Confirmar Senha</label>
-            <input type="password" class="form-control" id="campoSenha" required name="senhaRepitida">
+            <label for="campoSenhaRepetida">Confirmar Senha</label>
+            <input type="password" class="form-control" id="campoSenhaRepetida" required name="senhaRepitida" value="{{pessoas.senha_pessoa}}">
         </div>
-        <div class="input-group input-group-sm col-8">
-            <div class="input-group-prepend">
-                <label class="input-group-text" for="campoTipo">Tipo</label>
-            </div>
-            <select class="custom-select" id="campoTipo" name="tipo">
-                {{!-- <option id="option1" value="{{usuarios.tipo}}" selected>{{usuarios.tipo_descricao}}</option> --}}
-                {{#if isAdministrador}}
-                    <option value="2" selected>Organizador</option>
-                    <option value="1">Professor</option>
-                    <option value="0">Administrador</option>
-                {{else}}
-                    <option id="option1" value="{{usuarios.tipo}}" selected>{{usuarios.tipo_descricao}}</option>
-                {{/if}}
-            </select>
-        </div>
-            {{#if isAdministrador}}
-                <small class="form-text text-muted">Tipo Atual: {{usuarios.tipo_descricao}}</small>
-            {{/if}}
         <br>
         <button type="submit" class="btn" style="background-color: #e4b94c;">Salvar</button>
         <br><br>

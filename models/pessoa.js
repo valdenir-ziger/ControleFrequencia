@@ -18,6 +18,11 @@ const Pessoa = db.sequelize.define('pessoa', {
           allowNull: true,
           defaultValue: false,
      },
+     organizador: {
+          type: DataTypes.BOOLEAN,
+          allowNull: true,
+          defaultValue: false,
+     },
      vinculo_utfpr: {
           type: DataTypes.BOOLEAN,
           allowNull: true,
@@ -30,7 +35,7 @@ const Pessoa = db.sequelize.define('pessoa', {
      },
      senha_pessoa: {
           type: DataTypes.STRING,
-          allowNull: false,
+          allowNull: true,
      },
      email_pessoa: {
           type: DataTypes.STRING,
@@ -40,12 +45,10 @@ const Pessoa = db.sequelize.define('pessoa', {
      telefone_pessoa: {
           type: DataTypes.STRING,
           allowNull: false,
-          unique: true,
      },
      ra_pessoa: {
           type: DataTypes.STRING,
-          allowNull: false,
-          unique: true,
+          allowNull: true,
      },
      nome_pessoa: {
           type: DataTypes.STRING,

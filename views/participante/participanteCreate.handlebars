@@ -1,18 +1,36 @@
-<form class="text-dark" action="/pessoaCreate" method="post">
+<form class="text-dark" action="/participanteCreate" method="post">
     <div class="form-group col-md-5" style="background-color: #b4b1d8;">
         <br>
         <div class="form-group" style="background-color: #f6f2f0;">
-            <h2>Cadastrar Participante</h2>
+            <h5>Cadastrar Participante</h5>
             <div class="input-group input-group-sm col-8">
-                <input type="text" class="form-control text-dark" placeholder="Nome" id="campoNome" name="nome">
+                <input type="text" class="form-control text-dark" required placeholder="Nome" id="campoNome" name="nome">
             </div>
             <br>
             <div class="input-group input-group-sm col-8">
-                <input type="text" class="form-control text-dark" placeholder="Login" id="campoLogin" name="login">
+                <input type="text" class="form-control text-dark" required placeholder="CPF" id="campoCPF" name="cpf">
             </div>
             <br>
             <div class="input-group input-group-sm col-8">
-                <input type="password" class="form-control text-dark" placeholder="Senha" id="campoSenha" name="senha">
+                <input type="password" class="form-control text-dark" required placeholder="Telefone" id="campoTelefone" name="telefone">
+            </div>
+            <br>
+            <div class="input-group input-group-sm col-8">
+                <input type="password" class="form-control text-dark" required placeholder="Email" id="campoEmail" name="email">
+            </div>
+            <br>
+            <div class="input-group input-group-sm col-8">
+                <input type="password" class="form-control text-dark" placeholder="RA" id="campoRA" name="ra">
+            </div>
+            <br>
+            <div class="input-group input-group-sm col-8">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="campoTipo">Atividade(s)</label>
+                </div>
+                <select class="custom-select text-dark" required placeholder="Selecione" id="campoTipo" name="tipo">
+                    <option value="99" selected>Selecione</option>
+                    <option value="0">Em breve</option>
+                </select>
             </div>
             <br>
             <input type="submit" class="btn btn-sm btn-block col-3" style="background-color: #e4b94c;" value="Cadastrar">

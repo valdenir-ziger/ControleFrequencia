@@ -36,6 +36,8 @@ route.get("/pessoaDelete/:id", controllerPessoa.getDelete);
 //Participante - CRUD
 route.get("/participanteCreate" , controllerPessoa.getParticipante);
 route.post("/participanteCreate", controllerPessoa.postParticipanteCreate);
+route.get("/participanteProcura", controllerPessoa.getParticipanteProcurar);
+route.post("/participanteRelacionar", controllerPessoa.postParticipanteRelacionar);
 
 //Controller Frequencia
 //Frequencia-CRUD

@@ -6,12 +6,12 @@
 <body>
     <script> 
         function cadastrar() { 
-            window.location.href = "/pessoaCreate"
+            window.location.href = "/participanteCreate"
         }
     </script>
     <form action="/login" method="post">
         <br>
-        <h3>Controle de Frequência</h3>
+        <h5>Controle de Frequência</h5>
         <br>
         <div class="col">
             <center>
@@ -29,8 +29,9 @@
         <br>
         <div class="form-group">
             <button type="submit" class="btn col-sm-7 btn-block" style="background-color: #e4b94c;">Entrar</button>
-            <button onclick=cadastrar() class="btn col-sm-7 btn-block" style="background-color: #e4b94c;">Cadastrar Participante</button>
+            {{!-- <button onclick=cadastrar() class="btn col-sm-7 btn-block" style="background-color: #e4b94c;">Cadastrar Participante</button> --}}
         </div>
+        <br>
     </form>
 </body>
 

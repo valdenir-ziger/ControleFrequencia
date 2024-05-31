@@ -3,7 +3,7 @@ const db                      = require("../controllers/db.js");
 
 const Evento = db.sequelize.define("evento", {
      cod_evento: {
-          type: Sequelize.INTEGER.UNSIGNED,
+          type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
           allowNull: false,

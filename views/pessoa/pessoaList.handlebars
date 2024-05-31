@@ -1,28 +1,22 @@
-<h2>Lista de Usuários</h2>
+<h5>Lista de Usuários</h5>
 <div class="table-responsive"></div>
-    <table class="table table-sm text-dark text-start col-6" style="background-color: #b4b1d8">
+    <table class="table table-sm text-dark text-start col-7" style="background-color: #b4b1d8">
         <thead class="thead-dark">
             <tr>
                 <th class="text-dark" style="background-color: #b4b1d8" scope="col">Login</th>
                 <th class="text-dark" style="background-color: #b4b1d8" scope="col">Senha</th>
                 <th class="text-dark" style="background-color: #b4b1d8" scope="col">Nome</th>
-                <th class="text-dark" style="background-color: #b4b1d8" scope="col">Tipo</th>
+                <th class="text-dark" style="background-color: #b4b1d8" scope="col">e-mail</th>
             </tr>
         </thead>
         <tbody>
-            {{#each usuarios}}
+            {{#each pessoas}}
                 <tr>
-                    <th scope="row">{{login}}</th>
-                    <td>{{senha}}</td>
-                    <td>{{nome}}</td>
-                    <td>{{tipo_descricao}}</td>
-                    <td><a href="usuarioEdit/{{_id}}"> 
-                    <button class="btn btn-sm" style="background-color: #e4b94c;">Editar</button> </a></td>
-                    {{#if excluido}}
-                        <td><a href="usuarioDelete/{{_id}}"> <button class="btn btn-outline-danger btn-sm" disabled>Desativado</button> </a></td>
-                    {{else}}
-                        <td><a href="usuarioDelete/{{_id}}"> <button class="btn btn-sm" style="background-color: #e4b94c;">Deletar</button> </a></td>
-                    {{/if}}
+                    <th scope="row">{{cpf_pessoa}}</th>
+                    <td>{{senha_pessoa}}</td>
+                    <td>{{nome_pessoa}}</td>
+                    <td>{{email_pessoa}}</td>
+                    <td><a href="pessoaEdit/{{cod_pessoa}}"><button class="btn btn-sm" style="background-color: #e4b94c;">Editar</button></a></td>
                 </tr>
             {{/each}}
         </tbody>

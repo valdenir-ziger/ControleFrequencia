@@ -56,21 +56,28 @@ module.exports = {
         res.render('pessoa/pessoaCreate');
     },
     async postCreate(req, res) {
-        const {nome, login, senha, tipo} = req.body;
-        const usuario = new Usuario({nome, login, senha, tipo});
-        if (tipo == 0){
-            usuario.tipo_descricao = "Administrador";
+        const {nome, senha, email, telefone, cpf, ra, tipo} = req.body;
+        var isProfessor   = false;
+        var isOrganizador = false;
+        if (tipo == '2') {
+            isOrganizador = true;
         }
-        else if (tipo == 1) {
-            usuario.tipo_descricao = "Professor";
-        }
-        else{
-            usuario.tipo_descricao = "Organizador";
+        if (tipo == '1') {
+            isProfessor = true;
         }
 
-        await usuario.save().catch((err) => {
-            console.log(err); 
-        });
+        const resultado = await Pessoa.create({
+            nome_pessoa: nome,
+            cpf_pessoa: cpf.replaceAll(' ',''),
+            senha_pessoa: senha.replaceAll(' ',''),
+            vinculo_utfpr : true,
+            professor : isProfessor,
+            organizador :isOrganizador,
+            email_pessoa : email.replaceAll(' ',''),
+            telefone_pessoa : telefone,
+            ra_pessoa : ra.replaceAll(' ','') 
+        })
+        console.log(resultado);
 
         res.redirect('/home');
     },
@@ -79,16 +86,16 @@ module.exports = {
             res.redirect('/login');
         }else{
             if (req.session.tipo == 0){//administrador
-                Usuario.find().then((usuarios) => {
-                    res.render('pessoa/pessoaList', { usuarios: usuarios.map(usuarios=> usuarios.toJSON())});
+                Pessoa.findAll().then((pessoas) => {
+                    res.render('pessoa/pessoaList', { pessoas: pessoas.map(pessoas=> pessoas.toJSON())});
                 }).catch((err) => {
                     console.log(err); 
                     res.redirect('/home');
                 });
             }
             else{
-                Usuario.find({_id: req.session.user_id, excluido: false}).then((usuarios) => {
-                    res.render('pessoa/pessoaList', { usuarios: usuarios.map(usuarios=> usuarios.toJSON())});
+                Pessoa.findByPk(req.session.user_id).then((pessoas) => {
+                    res.render('pessoa/pessoaList', { pessoas: pessoas.map(pessoas=> pessoas.toJSON())});
                 }).catch((err) => {
                     console.log(err); 
                     res.redirect('/home');
@@ -97,33 +104,24 @@ module.exports = {
         }
     },
     async getEdit(req, res) {
-        await Usuario.findOne({ _id: req.params.id }).then((usuarios) => {
-            console.log('pessoa/pessoaEdit: ' + usuarios); 
-            res.render('pessoa/pessoaEdit', { usuarios: usuarios.toJSON() });
+        await Pessoa.findByPk(req.params.id).then((pessoas) => {
+            console.log('pessoa/pessoaEdit: ' + pessoas); 
+            res.render('pessoa/pessoaEdit', { pessoas: pessoas.toJSON() });
         });
     },
     async postEdit(req, res) {
         if(req.session.login == undefined){
             res.redirect('/login');
         }else{
-            var {nome, senha, tipo, tipo_descricao, excluido} = req.body;
-            excluido = false;
-            if (tipo.length > 1){
-                //tipo = tipo[0];//Como tava Antes de Alterar
-                tipo = tipo[1];//Como ficou depois
-            }
+            var {id, nome, senha} = req.body;
 
-            if (tipo == 0){
-                tipo_descricao = "Administrador";
-            }
-            else if (tipo == 1) {
-                tipo_descricao = "Professor";
-            }
-            else{
-                tipo_descricao = "Organizador";
-            }
+            const pessoa = await Pessoa.findByPk(id);
+            pessoa.nome_pessoa  = nome; 
+            pessoa.senha_pessoa = senha.replaceAll(' ','');
 
-            await Usuario.findOneAndUpdate({_id:req.body.id}, {nome, senha, tipo, tipo_descricao, excluido});
+            const resultadoSave =await pessoa.save(); 
+            console.log(resultadoSave);
+
             res.redirect('/pessoaList');
         }
     },
@@ -131,8 +129,8 @@ module.exports = {
         if(req.session.login == undefined){
             res.redirect('/login');
         }else{
-            var excluido = true;
-            await Usuario.findOneAndUpdate({ _id: req.params.id }, {excluido});
+            const pessoa = await Pessoa.findByPk(req.params.id);
+            pessoa.destroy();
             res.redirect('/pessoaList');
         }
     },
@@ -140,22 +138,50 @@ module.exports = {
         res.render('participante/participanteCreate');
     },
     async postParticipanteCreate(req, res) {
-        const {nome, login, senha, tipo} = req.body;
-        const usuario = new Usuario({nome, login, senha, tipo});
-        if (tipo == 0){
-            usuario.tipo_descricao = "Administrador";
-        }
-        else if (tipo == 1) {
-            usuario.tipo_descricao = "Professor";
-        }
-        else{
-            usuario.tipo_descricao = "Organizador";
+        const {nome, email, telefone, cpf, ra} = req.body;
+        var numeroRA = null;
+        if (ra != '') {
+            numeroRA = ra;
         }
 
-        await usuario.save().catch((err) => {
+        const resultado = await Pessoa.create({
+            nome_pessoa: nome,
+            cpf_pessoa: cpf,
+            vinculo_utfpr : true,
+            email_pessoa : email,
+            telefone_pessoa : telefone,
+            ra_pessoa : numeroRA
+        }).catch((err) => {
             console.log(err); 
         });
+        console.log(resultado);
 
         res.redirect('/home');
+    },
+    async getParticipanteProcurar(req, res) {
+        res.render('participante/participanteProcura');
+    },
+    async postParticipanteRelacionar(req, res) { 
+        if(req.session.login == undefined){
+            res.redirect('/login');
+        }else{
+            var {procurar} = req.body;
+            if (procurar.length == 11){
+                Pessoa.findAll({where: {[Op.and]: [{cpf_pessoa: procurar}],},}).then((pessoas) => {
+                    res.render('participante/participanteProcura',{ pessoas: pessoas.map(pessoas=> pessoas.toJSON())});
+                }).catch((err) => {
+                    console.log(err); 
+                    res.redirect('/home');
+                });
+            }
+            else if (procurar.length == 7){
+                Pessoa.findAll({where: {[Op.and]: [{ra_pessoa: procurar}],},}).then((pessoas) => {
+                    res.render('participante/participanteProcura',{ pessoas: pessoas.map(pessoas=> pessoas.toJSON())});
+                }).catch((err) => {
+                    console.log(err); 
+                    res.redirect('/home');
+                });
+            }
+        }
     },
 }   

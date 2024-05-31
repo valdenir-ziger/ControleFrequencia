@@ -1,6 +1,4 @@
-// const db_mongoose  = require('./config/db_mongoose');
 const routes       = require('./routers/route');
-// const mongoose     = require('mongoose');
 const handlebars   = require('express-handlebars');
 var   cookieParser = require('cookie-parser');
 var   session      = require('express-session');

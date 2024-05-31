@@ -1,0 +1,41 @@
+<form class="text-dark" action="/participanteRelacionar" method="post">
+    <div class="form-group col-md-5" style="background-color: #b4b1d8;">
+        <br>
+        <div class="form-group" style="background-color: #f6f2f0;">
+            <h5>Relacionar Atividades</h5>
+            <div class="input-group input-group-sm col-7">
+                <input type="text" class="form-control" placeholder="CPF/RA" id="campoProcurar" name="procurar">
+            </div>
+            <br>
+            <input type="submit" class="btn btn-sm btn-block col-4" style="background-color: #e4b94c;" value="Procurar Participante">
+            <br>
+                
+        </div>
+        <br>
+    </div>
+    <div class="table-responsive"></div>
+        <table class="table table-sm text-dark text-start col-7" style="background-color: #b4b1d8">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-dark" style="background-color: #b4b1d8" scope="col">Nome</th>
+                    <th class="text-dark" style="background-color: #b4b1d8" scope="col">CPF</th>
+                    <th class="text-dark" style="background-color: #b4b1d8" scope="col">RA</th>
+                    <th class="text-dark" style="background-color: #b4b1d8" scope="col">e-mail</th>
+                    <th class="text-dark" style="background-color: #b4b1d8" scope="col">Telefone</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each pessoas}}
+                    <tr>
+                        <th scope="row">{{nome_pessoa}}</th>
+                        <td>{{cpf_pessoa}}</td>
+                        <td>{{ra_pessoa}}</td>
+                        <td>{{email_pessoa}}</td>
+                        <td>{{telefone_pessoa}}</td>
+                        <td><a href="pessoaEdit/{{cod_pessoa}}"><button class="btn btn-sm" style="background-color: #e4b94c;">Editar</button></a></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</form>
