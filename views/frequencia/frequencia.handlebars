@@ -1,14 +1,33 @@
 <form class="text-dark" action="/frequenciaCreate" method="post">
     <div class="form-group col-md-5" style="background-color: #b4b1d8;">
+       {{!-- <img src="../../public/images/fundo_div.png" width="50%"/> --}}
         <br>
         <div class="form-group" style="background-color: #f6f2f0;">
-            <h2>Lançar Frequência</h2>
+            <h5>Lançar Frequência</h5>
             <br>
             <div class="input-group input-group-sm col-8">
-                <input type="text" class="form-control text-dark" placeholder="RA/CPF" id="campoNome" name="nome">
+                <input type="text" class="form-control" placeholder="RA/CPF" id="campoProcura" name="procurar" value = "" required>
             </div>
+            {{#if pessoas.length}}​
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Concluido o Registro!</strong>
+                    <br>{{mensagem}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {{/if}}
+            {{#unless sucesso}}​
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Ops. Algo deu Errado!</strong>
+                    <br>{{mensagem}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {{/unless}}
             <br>
-            <input type="submit" class="btn btn-sm btn-block col-3" style="background-color: #e4b94c;" value="Gravar">
+            <input type="submit" class="btn btn-sm btn-block col-3" style="background-color: #e4b94c;" value="Registrar">
             <br>
         </div>
         <br>

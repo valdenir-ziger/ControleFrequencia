@@ -34,14 +34,15 @@ route.get("/pessoaEdit/:id"  , controllerPessoa.getEdit);
 route.post("/pessoaEdit"     , controllerPessoa.postEdit);
 route.get("/pessoaDelete/:id", controllerPessoa.getDelete);
 //Participante - CRUD
-route.get("/participanteCreate" , controllerPessoa.getParticipante);
-route.post("/participanteCreate", controllerPessoa.postParticipanteCreate);
-route.get("/participanteProcura", controllerPessoa.getParticipanteProcurar);
+route.get("/participanteCreate"     , controllerPessoa.getParticipante);
+route.post("/participanteCreate"    , controllerPessoa.postParticipanteCreate);
+route.get("/participanteProcura"    , controllerPessoa.getParticipanteProcurar);
 route.post("/participanteRelacionar", controllerPessoa.postParticipanteRelacionar);
 
 //Controller Frequencia
 //Frequencia-CRUD
-route.get("/frequencia" , controllerFrequencia.getFrequencia);
+route.get("/frequencia"       , controllerFrequencia.getFrequencia);
+route.post("/frequenciaCreate", controllerFrequencia.postFrequencia);
 
 //Controller Relatório
 //Relatório-CRUD
